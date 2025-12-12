@@ -14,7 +14,7 @@ def check_and_merge(
     ):
 
     range_merged_flag: bool = False
-    merged_range: str = f'{new_start_range}-{new_end_range}'
+    merged_range = f'{new_start_range}-{new_end_range}'
 
     if start_range >= new_start_range and start_range <= new_end_range:
         if end_range <= new_end_range:
@@ -31,49 +31,69 @@ def check_and_merge(
             merged_range = f'{new_start_range}-{new_end_range}'
 
         range_merged_flag = True
+    else:
+        merged_range = None
     
     return merged_range, range_merged_flag
 
+
 def main():
 
-    fresh_count: int = 0
     # ranges: list = pandas.read_csv('day_5_input_ranges.csv')['ranges'].to_list()
     ranges: list = pandas.read_csv('day_5_input_ranges_test.csv')['ranges'].to_list()
 
-    new_ranges: list = [ranges[0]]
+    merged: bool = True
+    while merged:
+        for id_range in ranges:
+            print('\n', id_range)
+            print('--------------')
 
-    for id_range in ranges[1:]:
+            start_range_1, end_range_1 = split_range(id_range)
+            other_ranges = [itm for itm in ranges if itm != id_range] 
 
-        start_range, end_range = split_range(id_range)
- 
-        range_merged_flag: bool = False
-        for i, new_range in enumerate(new_ranges):
-            new_start_range, new_end_range = split_range(new_range)
+            for other_id_range in other_ranges:
+                print(other_id_range)
+                print(other_ranges)
 
-            merged_range, range_merged_flag = check_and_merge(
-                start_range, end_range,
-                new_start_range, new_end_range)
-            
-            if range_merged_flag:
-                new_ranges[i] = merged_range
+                start_range_2, end_range_2 = split_range(other_id_range)
+                
+                merged_range, merged = check_and_merge(
+                    start_range_1,
+                    end_range_1,
+                    start_range_2,
+                    end_range_2
+                )
 
-                # while range_merged_flag:
-                #     new_ranges[i] = merged_range
-            
+                if merged:
+                    ranges.remove(id_range)
+                    ranges.remove(other_id_range)
+                    ranges.append(merged_range)
+                    print(f'merged {id_range} and {other_id_range}')
 
-            
-            print(new_ranges)
+                    break
         
-        if range_merged_flag == False:
-            new_ranges.append(id_range)
+            if merged:
+                break
 
+        # stop checking if there is only 1 range
+        if len(ranges) == 1:
+            break
+
+    
+    print(f'\nfinal ranges: {ranges}')
+    # count the Ids and get the solution
     id_count: int = 0
-    for final_range in new_ranges:
+    for final_range in ranges:
         final_start_range, final_end_range = split_range(final_range)
 
         id_count += final_end_range - final_start_range + 1
     
-    print(f'Total IDs: {id_count}')
+    print(f'\nTotal IDs: {id_count}')
         
+
 if __name__ == "__main__":
     main()
+    
+
+    # 394346020079876 - wrong
+    # 378077676215858 - wrong
