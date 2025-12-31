@@ -1,5 +1,7 @@
 import pandas
 
+INPUT_FILE: str = '../../advent_of_code_inputs/2025/day1/day_1_input.csv'
+
 
 def tick(position, direction):
     if direction == 'L':
@@ -20,7 +22,7 @@ def main():
     password1 = 0
     password2 = 0
 
-    input = pandas.read_csv('day_1_input.csv')['instruction'].to_list()
+    input = pandas.read_csv(INPUT_FILE)['instruction'].to_list()
 
     position = starting_position
 

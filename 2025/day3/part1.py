@@ -1,5 +1,7 @@
 import pandas
 
+INPUT_FILE: str = '../../advent_of_code_inputs/2025/day3/day_3_input.csv'
+
 def find_first_num(bank_list: list):
     truncated_bank = bank_list[:-1] 
 
@@ -21,7 +23,7 @@ def find_second_num(bank_list: list, first_idx):
 def main():
 
     total_joltage = 0
-    input: list = pandas.read_csv('day_3_input.csv')['banks'].to_list()
+    input: list = pandas.read_csv(INPUT_FILE)['banks'].to_list()
 
     for bank in input:
         bank_list: list = list(bank)

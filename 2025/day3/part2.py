@@ -1,5 +1,7 @@
 import pandas
 
+INPUT_FILE: str = '../../advent_of_code_inputs/2025/day3/day_3_input.csv'
+
 def find_num(bank: list, battery: int):
 
     if battery == 1:
@@ -20,7 +22,7 @@ def main():
 
     num_batteries = 12
     total_joltage = 0
-    input: list = pandas.read_csv('day_3_input.csv')['banks'].to_list()
+    input: list = pandas.read_csv(INPUT_FILE)['banks'].to_list()
 
     for bank in input:
         bank_list: list = list(bank)

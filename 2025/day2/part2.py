@@ -1,6 +1,9 @@
 import math
 import pandas
 
+INPUT_FILE_TEST: str = '../../advent_of_code_inputs/2025/day2/day_2_input_test.csv'
+INPUT_FILE: str = '../../advent_of_code_inputs/2025/day2/day_2_input.csv'
+
 def group_numbers(id_string: str, group_size: int):
     num_of_groups: int = math.floor(len(id_string) / group_size)
 
@@ -46,8 +49,8 @@ def check_id(id: int):
 def main():
     invalid_ids = []
     invalid_id_sum = 0
-    input = pandas.read_csv('day_2_input.csv').columns.to_list()
-    # input = pandas.read_csv('day_2_input_test.csv').columns.to_list()
+    input = pandas.read_csv(INPUT_FILE).columns.to_list()
+    # input = pandas.read_csv(INPUT_FILE_TEST).columns.to_list()
 
     for id_range in input:
         

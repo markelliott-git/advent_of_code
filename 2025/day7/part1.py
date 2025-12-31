@@ -4,6 +4,8 @@ import time
 from rich.live import Live
 from rich.text import Text
 
+INPUT_FILE: str = '../../advent_of_code_inputs/2025/day7/day_7_input.txt'
+
     
 # functions
 def generate_grid(grid: list) -> Text:
@@ -15,9 +17,6 @@ def generate_grid(grid: list) -> Text:
 
 
 # Read file
-# INPUT_FILE: str = "day_7_input_test.txt" 
-INPUT_FILE: str = "day_7_input.txt" 
-
 with open(INPUT_FILE) as f:
     grid: list = [list(line.rstrip()) for line in f]
 

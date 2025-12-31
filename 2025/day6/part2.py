@@ -1,7 +1,8 @@
 
+INPUT_FILE: str = '../../advent_of_code_inputs/2025/day6/day_6_input.txt'
 
 def main():
-    with open('day_6_input.txt', 'r') as f:
+    with open(INPUT_FILE, 'r') as f:
         input = f.readlines()
     
     

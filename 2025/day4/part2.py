@@ -1,5 +1,8 @@
 import pandas
 
+INPUT_FILE_TEST: str = '../../advent_of_code_inputs/2025/day4/day_4_input_test.csv'
+INPUT_FILE: str = '../../advent_of_code_inputs/2025/day4/day_4_input.csv'
+
 
 def count_rolls(
         grid, i: int, j: int,
@@ -46,8 +49,8 @@ def count_rolls(
 
 def main():
     
-    input: list = pandas.read_csv('day_4_input.csv')['rows'].to_list()
-    # input: list = pandas.read_csv('day_4_input_test.csv')['rows'].to_list()
+    input: list = pandas.read_csv(INPUT_FILE)['rows'].to_list()
+    # input: list = pandas.read_csv(INPUT_FILE_TEST)['rows'].to_list()
     grid: list = [list(row) for row in input]
 
     first_row:int = 0
@@ -56,20 +59,26 @@ def main():
     last_column: int = len(grid[0]) - 1
 
     accessible_rolls: int = 0
+    prev_accessible_rolls: int = -1
 
-    for i, row in enumerate(grid):
-        for j, column in enumerate(row):
+    while prev_accessible_rolls < accessible_rolls:
+        prev_accessible_rolls = accessible_rolls
 
-            if grid[i][j] == '@':
+        for i, row in enumerate(grid):
+            for j, column in enumerate(row):
 
-                num_rolls: int = count_rolls(
-                    grid, i, j,
-                    first_row, last_row,
-                    first_column, last_column
-                )
+                if grid[i][j] == '@':
 
-                if num_rolls < 4:
-                    accessible_rolls += 1
+                    num_rolls: int = count_rolls(
+                        grid, i, j,
+                        first_row, last_row,
+                        first_column, last_column
+                    )
+
+                    if num_rolls < 4:
+                        grid[i][j] = '.'
+                        accessible_rolls += 1
+                        any_accessible = True
 
     print(f'accessible rolls: {accessible_rolls}')
 
