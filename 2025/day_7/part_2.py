@@ -13,47 +13,42 @@ def generate_grid(grid: list) -> Text:
         text.append(''.join(row) +'\n')
     return text
 
-def get_indexes(row: list, char: str) -> list:
-    indexes = [i for i, val in enumerate(row) if val == char]
-    
-    return indexes
 
 # Read file
-INPUT_FILE: str = "day_7_input_test.txt" 
-# INPUT_FILE: str = "day_7_input.txt" 
+# INPUT_FILE: str = "day_7_input_test.txt" 
+INPUT_FILE: str = "day_7_input.txt" 
 
 with open(INPUT_FILE) as f:
     grid: list = [list(line.rstrip()) for line in f]
 
 # Render grid
-with Live(generate_grid(grid), refresh_per_second=1) as live:
+with Live(generate_grid(grid), refresh_per_second=10) as live:
     starting_idx: int = grid[0].index('S')
 
     previous_row: list = grid[0]
     split_count: int = 0
     for i, row in enumerate(grid[1:]):
-        time.sleep(1)
+        time.sleep(.1)
 
         if previous_row == grid[0]:
             row[starting_idx] = '|'
             previous_row = row
             continue
         else:
-            splitters: list = get_indexes(row, '^')
             zipped_rows = zip(previous_row, row)
             
             for i, pair in enumerate(zipped_rows):
                 if pair == ('|', '^'):
+                    if row[i-1] == '.' or row[i+1] =='.':
+                        split_count +=1
                     if row[i-1] == '.':
                         row[i-1] = '|'
-                        split_count += 1
+                        # split_count += 1
                     if row[i+1] == '.':
                         row[i+1] = '|'
-                        split_count += 1
+                        # split_count += 1
                 elif pair == ('|', '.'):
                     row[i] = '|'
-
-            print(split_count)
 
         previous_row = row
 

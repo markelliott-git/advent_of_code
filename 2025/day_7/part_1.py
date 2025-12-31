@@ -15,7 +15,7 @@ def generate_grid(grid: list) -> Text:
 
 
 # Read file
-INPUT_FILE: str = "day_7_input_test.txt" 
+# INPUT_FILE: str = "day_7_input_test.txt" 
 INPUT_FILE: str = "day_7_input.txt" 
 
 with open(INPUT_FILE) as f:
